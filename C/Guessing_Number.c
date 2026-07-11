@@ -19,13 +19,14 @@ int main(){
         if (guess < 1 || guess > 100) {
             printf("Please enter a number between 1 and 100.\n");
             continue;
-        }
-        if (guess < random) {
+        } else if (guess < random) {
             printf("Too low! Try again.\n");
         } else if (guess > random) {
             printf("Too high! Try again.\n");
-        } else {
+        } else if (guess == random) {
             printf("Congratulations! You've guessed the number %d in %d attempts.\n\n", random, attempts);
+        } else {
+            printf("Invalid input. Please enter a valid number.\n");
         }
 
     } while (guess != random);
