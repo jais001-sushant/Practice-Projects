@@ -16,6 +16,10 @@ int main(){
         scanf("%d", &guess);
         attempts++;
 
+        if (guess < 1 || guess > 100) {
+            printf("Please enter a number between 1 and 100.\n");
+            continue;
+        }
         if (guess < random) {
             printf("Too low! Try again.\n");
         } else if (guess > random) {
