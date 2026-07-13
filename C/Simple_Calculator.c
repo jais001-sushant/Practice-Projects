@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<math.h>
 
 void choice_operation(int choice, int num1, int num2){
     printf("---------------------------------\n");
@@ -26,7 +27,6 @@ int main(){
             printf("Exiting the calculator. Goodbye!\n");
             break;
         }
-
         else if (choice < 1 || choice > 7){
             printf("Invalid choice. Please select a valid option.\n");
             continue;
@@ -37,7 +37,31 @@ int main(){
         printf("Enter second number: ");
         scanf("%lf", &num2);
 
-        printf("Result: \n");
+        switch(choice){
+            case 1:
+                result = num1 + num2;
+            break;
+            case 2:
+                result = num1 - num2;
+            break;
+            case 3:
+                result = num1 * num2;
+            break;
+            case 4:
+                result = num1 / num2;
+            break;
+            case 5:
+                result = (int)num1 % (int)num2;
+            break;
+            case 6:
+                result = pow(num1, num2);
+            break;
+            default:
+                printf("Invalid choice. Please select a valid option.\n");
+                continue;
+        }
+
+        printf("Result: %.2f\n", result);
         printf("---------------------------------\n");
     };
 
