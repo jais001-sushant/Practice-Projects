@@ -13,7 +13,11 @@ int main(){
 
     do {
         printf("\nEnter your guess: ");
-        scanf("%d", &guess);
+        if(scanf("%d", &guess) != 1) {
+            printf("Invalid input. Please enter a valid number.\n");
+            while(getchar() != '\n');
+            continue;
+        }
         attempts++;
 
         if (guess < 1 || guess > 100) {
