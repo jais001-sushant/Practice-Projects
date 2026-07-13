@@ -20,22 +20,25 @@ void display_time(char* buffer, int format){
     }
 }
 
-int main(){
-    char time[50];
-    int format;
-
-    printf("Select time format:\n");
+int format_choice(int format) {
+    printf("\nSelect time format:\n");
     printf("1. 12-hour format (default)\n");
     printf("2. 24-hour format\n");
     printf("Enter your choice (1 or 2): ");
     if(scanf("%d", &format) != 1) {
-        printf("Invalid input. Please enter a valid number.\n");
+        printf("Invalid input. Defaulting to 12-hour format.\n");
         return 1;
     }
+    return format;
+}
+
+int main(){
+    char time[50];
+    int format = format_choice(format);
 
     display_time(time, format);
 
-    printf("Current Time: %s\n", time);
+    printf("Current Time: %s\n\n", time);
 
     return 0;
 }
