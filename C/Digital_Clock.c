@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<time.h>
+#include<unistd.h>
+#include<stdlib.h>
 
 void display_time(char* buffer, int format){
     time_t raw_time;
@@ -42,15 +44,28 @@ void display_date(char* buffer){
     strftime(buffer, 100, "%A, %B %d, %Y", current_time);
 }
 
+void clear_console() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
 int main(){
     char time[50], date[100];
     int format = format_choice(format);
 
-    display_time(time, format);
-    display_date(date);
+    while(1){
+        display_time(time, format);
+        display_date(date);
 
-    printf("\nCurrent Time: %s\n", time);
-    printf("Current Date: %s\n\n", date);
+        // clear_console(); // Function called to clear the console
+        printf("\033[H\033[J"); // Clear the console
+        printf("\nCurrent Time: %s\n", time);
+        printf("Current Date: %s\n\n", date);
+        sleep(1);
+    }
 
     return 0;
 }
