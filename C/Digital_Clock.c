@@ -32,13 +32,25 @@ int format_choice(int format) {
     return format;
 }
 
+void display_date(char* buffer){
+    time_t raw_time;
+    struct tm *current_time;
+
+    time(&raw_time);
+    current_time = localtime(&raw_time);
+
+    strftime(buffer, 100, "%A, %B %d, %Y", current_time);
+}
+
 int main(){
-    char time[50];
+    char time[50], date[100];
     int format = format_choice(format);
 
     display_time(time, format);
+    display_date(date);
 
-    printf("Current Time: %s\n\n", time);
+    printf("\nCurrent Time: %s\n", time);
+    printf("Current Date: %s\n\n", date);
 
     return 0;
 }
