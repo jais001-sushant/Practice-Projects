@@ -15,7 +15,7 @@ int main(){
         if(scanf("%d", &option) != 1) {
             printf("Invalid input. Please enter a valid number.\n");
             while(getchar() != '\n');
-            return 1;
+            continue;
         }
         if (option == 5) {
             printf("Exiting the User Management System. Goodbye!\n");
@@ -24,6 +24,27 @@ int main(){
         else if (option < 1 || option > 5) {
             printf("Invalid choice! Please select a valid option.\n");
             continue;
+        }
+
+        switch(option){
+            case 1:
+                printf("Registering User...\n");
+            break;
+
+            case 2:
+                printf("Logging in User...\n");
+            break;
+
+            case 3:
+                printf("Displaying Users...\n");
+            break;
+
+            case 4:
+                printf("Deleting User...\n");
+            break;
+            default:
+                printf("Invalid choice! Please select a valid option.\n");
+                continue;
         }
     }
 
