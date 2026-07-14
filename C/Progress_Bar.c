@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<unistd.h>
+#include<stdlib.h>
 
 const int BAR_LENGTH = 50;
 
@@ -23,6 +24,14 @@ void print_bar(Task task){
     printf("] %d%%\n", task.progress);
 }
 
+void clear_console() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
 int main(){
     Task tasks[5];
 
@@ -34,9 +43,14 @@ int main(){
 
     while (1) {
         int all_done = 1;
+        // clear_console(); // Clear console
+        printf("\033[H\033[J"); // Clear console
         for (int i = 0; i < 5; i++) {
-            tasks[i].progress += tasks[i].step;
             if (tasks[i].progress < 100) {
+                tasks[i].progress += tasks[i].step;
+                if (tasks[i].progress > 100) {
+                    tasks[i].progress = 100;
+                }
                 all_done = 0;
             }
             print_bar(tasks[i]);
