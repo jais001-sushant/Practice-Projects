@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<unistd.h>
 
 const int BAR_LENGTH = 50;
 
@@ -23,17 +24,33 @@ void print_bar(Task task){
 }
 
 int main(){
-    Task tasks[] = {
-        {1, 70, 5},
-        {2, 90, 10},
-        {3, 40, 20},
-        {4, 100, 0},
-        {5, 0, 15}
-    };
+    Task tasks[5];
 
     for (int i = 0; i < 5; i++) {
-        print_bar(tasks[i]);
+        tasks[i].id = i + 1;
+        tasks[i].progress = 0;
+        tasks[i].step = 3;
     }
+
+    while (1) {
+        int all_done = 1;
+        for (int i = 0; i < 5; i++) {
+            tasks[i].progress += tasks[i].step;
+            if (tasks[i].progress < 100) {
+                all_done = 0;
+            }
+            print_bar(tasks[i]);
+        }
+
+        if (all_done) {
+            break;
+        }
+
+        printf("\n");
+        sleep(1);
+    }
+
+    printf("\nAll tasks completed!\n");
 
     return 0;
 }
