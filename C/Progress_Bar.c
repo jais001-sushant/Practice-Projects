@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<unistd.h>
 #include<stdlib.h>
+#include<time.h>
 
 const int BAR_LENGTH = 50;
 
@@ -34,11 +35,12 @@ void clear_console() {
 
 int main(){
     Task tasks[5];
+    srand(time(0));
 
     for (int i = 0; i < 5; i++) {
         tasks[i].id = i + 1;
         tasks[i].progress = 0;
-        tasks[i].step = 3;
+        tasks[i].step = rand() % 5 + 1;
     }
 
     while (1) {
