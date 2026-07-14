@@ -2,10 +2,16 @@
 
 const int BAR_LENGTH = 50;
 
-void print_bar(int id, int progress){
-    int filled_length = (progress * BAR_LENGTH) / 100;
+typedef struct {
+    int id;
+    int progress;
+    int step;
+} Task;
 
-    printf("Task %d: [", id);
+void print_bar(Task task){
+    int filled_length = (task.progress * BAR_LENGTH) / 100;
+
+    printf("Task %d: [", task.id);
     for (int i = 0; i < BAR_LENGTH; i++) {
         if (i < filled_length) {
             printf("=");
@@ -13,16 +19,21 @@ void print_bar(int id, int progress){
             printf(" ");
         }
     }
-    printf("] %d%%\n", progress);
+    printf("] %d%%\n", task.progress);
 }
 
 int main(){
-    // int id = 3, progress = 40;
-    print_bar(1, 70);
-    print_bar(2, 90);
-    print_bar(3, 40);
-    print_bar(4, 100);
-    print_bar(5, 0);
+    Task tasks[] = {
+        {1, 70, 5},
+        {2, 90, 10},
+        {3, 40, 20},
+        {4, 100, 0},
+        {5, 0, 15}
+    };
+
+    for (int i = 0; i < 5; i++) {
+        print_bar(tasks[i]);
+    }
 
     return 0;
 }
