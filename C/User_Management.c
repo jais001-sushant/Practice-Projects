@@ -12,6 +12,17 @@ typedef struct {
 User users[MAX_USERS];
 int user_count = 0;
 
+void fix_fgets_input(char* string) {
+    int index = strcspn(string, "\n");
+    string[index] = '\0';
+}
+
+void input_password(char* password) {
+    printf("Enter password: ");
+    fgets(password, CREDENTIAL_LENGTH, stdin);
+    fix_fgets_input(password);
+}
+
 void register_user() {
     if (user_count >= MAX_USERS) {
         printf("User limit reached. Cannot register more users.\n");
@@ -29,18 +40,21 @@ void register_user() {
 }
  
 int login_user() {
+    char username[CREDENTIAL_LENGTH];
+    char password[CREDENTIAL_LENGTH];
+
+    printf("\nLogin:\n");
+    printf("Enter username: ");
+    fgets(username, CREDENTIAL_LENGTH, stdin);
+    fix_fgets_input(username);
+    input_password(password);
+
+    for (int i = 0; i < user_count; i++) {
+        if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
+            return i;
+        }
+    }
     return -1;
-}
-
-void fix_fgets_input(char* string) {
-    int index = strcspn(string, "\n");
-    string[index] = '\0';
-}
-
-void input_password(char* password) {
-    printf("Enter password: ");
-    fgets(password, CREDENTIAL_LENGTH, stdin);
-    fix_fgets_input(password);
 }
 
 int main(){
