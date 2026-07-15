@@ -17,7 +17,11 @@ void fix_fgets_input(char* string) {
     string[index] = '\0';
 }
 
-void input_password(char* password) {
+void input_credentials(char* username, char* password) {
+    printf("Enter username: ");
+    fgets(username, CREDENTIAL_LENGTH, stdin);
+    fix_fgets_input(username);
+
     printf("Enter password: ");
     fgets(password, CREDENTIAL_LENGTH, stdin);
     fix_fgets_input(password);
@@ -30,10 +34,7 @@ void register_user() {
     }
 
     printf("\nRegister a new user:\n");
-    printf("Enter username: ");
-    fgets(users[user_count].username, CREDENTIAL_LENGTH, stdin);
-    fix_fgets_input(users[user_count].username);
-    input_password(users[user_count].password);
+    input_credentials(users[user_count].username, users[user_count].password);
 
     user_count++;
     printf("User registered successfully!\n");
@@ -44,10 +45,7 @@ int login_user() {
     char password[CREDENTIAL_LENGTH];
 
     printf("\nLogin:\n");
-    printf("Enter username: ");
-    fgets(username, CREDENTIAL_LENGTH, stdin);
-    fix_fgets_input(username);
-    input_password(password);
+    input_credentials(username, password);
 
     for (int i = 0; i < user_count; i++) {
         if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
@@ -70,11 +68,9 @@ int main(){
         printf("4. Delete User\n");
         printf("5. Exit\n");
         printf("\nEnter your choice (1-5): ");
-        if(scanf("%d", &option) != 1) {
-            printf("Invalid input. Please enter a valid number.\n");
-            while(getchar() != '\n');
-            continue;
-        }
+        scanf("%d", &option);
+        getchar();
+
         if (option == 5) {
             printf("Exiting the User Management System. Goodbye!\n");
             break;
@@ -92,7 +88,7 @@ int main(){
             case 2:
                 user_index = login_user();
                 if (user_index != -1) {
-                    printf("User logged in successfully!\n");
+                    printf("Login successful! Welcome, %s\n", users[user_index].username);
                 } else {
                     printf("Invalid username or password. Please try again.\n");
                 }
