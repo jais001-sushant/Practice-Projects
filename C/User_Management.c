@@ -1,7 +1,27 @@
 #include<stdio.h>
 
+#define MAX_USERS 10
+#define CREDENTIAL_LENGTH 30
+
+typedef struct {
+    char username[CREDENTIAL_LENGTH];
+    char password[CREDENTIAL_LENGTH];
+} User;
+
+User users[MAX_USERS];
+int user_count = 0;
+
+void register_user() {
+    printf("\nRegister New User\n");
+}
+
+int login_user() {
+    return -1;
+}
+
 int main(){
     int option;
+    int user_index;
 
     while (1){
         printf("\nWelcome to the User Management System!\n");
@@ -11,7 +31,7 @@ int main(){
         printf("3. Display Users\n");
         printf("4. Delete User\n");
         printf("5. Exit\n");
-        printf("Enter your choice (1-5): ");
+        printf("\nEnter your choice (1-5): ");
         if(scanf("%d", &option) != 1) {
             printf("Invalid input. Please enter a valid number.\n");
             while(getchar() != '\n');
@@ -28,11 +48,16 @@ int main(){
 
         switch(option){
             case 1:
-                printf("Registering User...\n");
+                register_user();
             break;
 
             case 2:
-                printf("Logging in User...\n");
+                user_index = login_user();
+                if (user_index != -1) {
+                    printf("User logged in successfully!\n");
+                } else {
+                    printf("Invalid username or password. Please try again.\n");
+                }
             break;
 
             case 3:
