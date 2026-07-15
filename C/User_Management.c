@@ -22,6 +22,7 @@ void register_user() {
     printf("Enter username: ");
     fgets(users[user_count].username, CREDENTIAL_LENGTH, stdin);
     fix_fgets_input(users[user_count].username);
+    input_password(users[user_count].password);
 
     user_count++;
     printf("User registered successfully!\n");
@@ -34,6 +35,12 @@ int login_user() {
 void fix_fgets_input(char* string) {
     int index = strcspn(string, "\n");
     string[index] = '\0';
+}
+
+void input_password(char* password) {
+    printf("Enter password: ");
+    fgets(password, CREDENTIAL_LENGTH, stdin);
+    fix_fgets_input(password);
 }
 
 int main(){
