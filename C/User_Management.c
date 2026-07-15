@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<string.h>
 
 #define MAX_USERS 10
 #define CREDENTIAL_LENGTH 30
@@ -12,11 +13,27 @@ User users[MAX_USERS];
 int user_count = 0;
 
 void register_user() {
-    printf("\nRegister New User\n");
-}
+    if (user_count >= MAX_USERS) {
+        printf("User limit reached. Cannot register more users.\n");
+        return;
+    }
 
+    printf("\nRegister a new user:\n");
+    printf("Enter username: ");
+    fgets(users[user_count].username, CREDENTIAL_LENGTH, stdin);
+    fix_fgets_input(users[user_count].username);
+
+    user_count++;
+    printf("User registered successfully!\n");
+}
+ 
 int login_user() {
     return -1;
+}
+
+void fix_fgets_input(char* string) {
+    int index = strcspn(string, "\n");
+    string[index] = '\0';
 }
 
 int main(){
