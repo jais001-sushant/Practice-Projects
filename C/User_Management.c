@@ -23,7 +23,8 @@ void input_credentials(char* username, char* password) {
     printf("Enter username: ");
     fgets(username, CREDENTIAL_LENGTH, stdin);
     fix_fgets_input(username);
-    printf("Enter password: \n");
+    printf("Enter password: ");
+    fflush(stdout);
 
     struct termios old_props, new_props;
     tcgetattr(STDIN_FILENO, &old_props);
