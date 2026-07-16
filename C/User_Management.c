@@ -78,6 +78,20 @@ int login_user() {
     return -1;
 }
 
+void display_users() {
+    if (user_count == 0) {
+        printf("\nNo user found!! Please register any.\n");
+        return;
+    }
+
+    printf("\nRegistered Users: \n");
+    for (int i = 0; i < user_count; i++){
+        printf("%d. %s\n", i+1, users[i].username);
+    }
+}
+
+void delete_user();
+
 int main(){
     int option;
     int user_index;
@@ -118,11 +132,11 @@ int main(){
             break;
 
             case 3:
-                printf("\nDisplaying Users...\n");
+                display_users();
             break;
 
             case 4:
-                printf("\nDeleting User...\n");
+                delete_user();
             break;
             default:
                 printf("\nInvalid choice! Please select a valid option.\n");
