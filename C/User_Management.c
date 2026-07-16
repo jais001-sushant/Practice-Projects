@@ -84,13 +84,44 @@ void display_users() {
         return;
     }
 
-    printf("\nRegistered Users: \n");
-    for (int i = 0; i < user_count; i++){
+    printf("\nRegistered Users:\n");
+    for (int i = 0; i < user_count; i++) {
         printf("%d. %s\n", i+1, users[i].username);
     }
 }
 
-void delete_user();
+void delete_user(){
+    char username[CREDENTIAL_LENGTH];
+
+    if (user_count == 0) {
+        printf("\nNo users available to delete.\n");
+        return;
+    }
+
+    printf("\nEnter username to delete: ");
+    fgets(username, CREDENTIAL_LENGTH, stdin);
+    fix_fgets_input(username);
+
+    int delete_index = -1;
+    for (int i= 0; i < user_count; i++) {
+        if (strcmp(users[i].username, username) == 0){
+            delete_index = i;
+            break;
+        }
+    }
+
+    if (delete_index == -1){
+        printf("\nUser not found.\n");
+        return;
+    }
+
+    for (int i = delete_index; i < user_count-1; i++) {
+        users[i] = users[i + 1];
+    }
+
+    user_count--;
+    printf("\nUser deleted successfully!\n");
+}
 
 int main(){
     int option;
