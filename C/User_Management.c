@@ -35,8 +35,14 @@ void input_credentials(char* username, char* password) {
     char ch;
     int i = 0;
     while ((ch = getchar()) != '\n' && ch != EOF){
-        password[i++] = ch;
-        printf("*");
+        if (ch == '\n' || ch == 127){
+            i--;
+            printf("\b \b");
+        }
+        else {
+            password[i++] = ch;
+            printf("*");
+        }
     }
     password[i] = '\0';
     tcsetattr(STDIN_FILENO, TCSANOW, &old_props);
