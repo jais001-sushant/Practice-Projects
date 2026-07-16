@@ -36,8 +36,10 @@ void input_credentials(char* username, char* password) {
     int i = 0;
     while ((ch = getchar()) != '\n' && ch != EOF){
         if (ch == '\n' || ch == 127){
-            i--;
-            printf("\b \b");
+            if (i > 0){
+                i--;
+                printf("\b \b");
+            }
         }
         else {
             password[i++] = ch;
