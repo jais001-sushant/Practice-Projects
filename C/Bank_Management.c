@@ -13,7 +13,7 @@ void create_account() {
     Account acc;
 
     FILE *file;
-    file = fopen(ACCOUNT_FILE, "a");
+    file = fopen(ACCOUNT_FILE, "a+");
     if (file == NULL) {
         printf("\nFile doesn't exist\n");
         return;
@@ -36,7 +36,36 @@ void create_account() {
 }
 
 void deposit_money() {
-    printf("\nMoney Deposited\n");
+    FILE *file;
+    file = fopen(ACCOUNT_FILE, "r+");
+    if (file == NULL) {
+        printf("\nFile doesn't exist\n");
+        return;
+    }
+
+    int acc_no;
+    float deposit_amount;
+    Account acc_update;
+
+    printf("\nEnter you account number: ");
+    scanf("%d", &acc_no);
+    printf("\nEnter amount to deposit: ");
+    scanf("%f", &deposit_amount);
+
+    while(fread(&acc_update, sizeof(acc_update), 1, file)) {
+        if (acc_update.acc_no == acc_no) {
+            acc_update.balance += deposit_amount;
+
+            fseek(file, -sizeof(acc_update), SEEK_CUR);
+            fwrite(&acc_update, sizeof(acc_update), 1, file);
+            fclose(file);
+            printf("\n%.2f deposited in your account.\n", deposit_amount);
+            printf("Your current balance is Rs.%.2f\n", acc_update.balance);
+            return;
+        }
+    }
+    fclose(file);
+    printf("\nAccount NO: %d was not found.\n", acc_no);
 }
 
 void withdraw_money() {
@@ -53,6 +82,7 @@ void check_balance() {
 
     int acc_no;
     Account acc_read;
+
     printf("\nEnter your account number: ");
     scanf("%d", &acc_no);
 
