@@ -1,7 +1,25 @@
 #include<stdio.h>
+#include<string.h>
+
+typedef struct {
+    char name[30];
+    int acc_no;
+    float balance;
+} Account;
 
 void create_account() {
-    printf("\nCreating Account\n");
+    Account acc;
+
+    printf("\nCreating New Account:\n");
+    printf("Enter your name: ");
+    fgets(acc.name, sizeof(acc.name), stdin);
+    int index = strcspn(acc.name, "\n");
+    acc.name[index] = '\0';
+
+    printf("\nEnter your account number: ");
+    scanf("%d", &acc.acc_no);
+
+    acc.balance = 0;
 }
 
 void deposit_money() {
