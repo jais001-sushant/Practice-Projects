@@ -16,7 +16,7 @@ void create_account() {
     int index = strcspn(acc.name, "\n");
     acc.name[index] = '\0';
 
-    printf("\nEnter your account number: ");
+    printf("Enter your account number: ");
     scanf("%d", &acc.acc_no);
 
     acc.balance = 0;
@@ -51,6 +51,7 @@ int main() {
             while(getchar() != '\n');
             continue;
         }
+        getchar();
 
         if (choice == 5){
             printf("\nExiting the Bank Management System. Goodbye!\n\n");
