@@ -1,5 +1,21 @@
 #include<stdio.h>
 
+void create_account() {
+    printf("\nCreating Account\n");
+}
+
+void deposit_money() {
+    printf("\nMoney Deposited\n");
+}
+
+void withdraw_money() {
+    printf("\nMoney Withdraw\n");
+}
+
+void check_balance() {
+    printf("\nCurrent Balance: \n");
+}
+
 int main() {
     int choice;
 
@@ -19,7 +35,7 @@ int main() {
         }
 
         if (choice == 5){
-            printf("\nExiting the User Management System. Goodbye!\n");
+            printf("\nExiting the Bank Management System. Goodbye!\n\n");
             break;
         }
 
@@ -30,15 +46,19 @@ int main() {
 
         switch(choice){
             case 1:
+                create_account();
             break;
 
             case 2:
+                deposit_money();
             break;
 
             case 3:
+                withdraw_money();
             break;
 
             case 4:
+                check_balance();
             break;
 
             default:
