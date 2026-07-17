@@ -65,11 +65,16 @@ void deposit_money() {
         }
     }
     fclose(file);
-    printf("\nAccount NO: %d was not found.\n", acc_no);
+    printf("\nAccount No: %d was not found.\n", acc_no);
 }
 
 void withdraw_money() {
-    printf("\nMoney Withdraw\n");
+    FILE *file;
+    file = fopen(ACCOUNT_FILE, "r+");
+    if (file == NULL) {
+        printf("\nFile doesn't exist\n");
+        return;
+    }
 }
 
 void check_balance() {
