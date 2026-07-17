@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<string.h>
 
+const char* ACCOUNT_FILE = "account.txt";
+
 typedef struct {
     char name[30];
     int acc_no;
@@ -11,7 +13,7 @@ void create_account() {
     Account acc;
 
     FILE *file;
-    file = fopen("account.txt", "a");
+    file = fopen(ACCOUNT_FILE, "a");
     if (file == NULL) {
         printf("\nFile doesn't exist\n");
         return;
@@ -42,7 +44,27 @@ void withdraw_money() {
 }
 
 void check_balance() {
-    printf("\nCurrent Balance: \n");
+    FILE *file;
+    file = fopen(ACCOUNT_FILE, "r");
+    if (file == NULL) {
+        printf("\nFile doesn't exist\n");
+        return;
+    }
+
+    int acc_no;
+    Account acc_read;
+    printf("\nEnter your account number: ");
+    scanf("%d", &acc_no);
+
+    while(fread(&acc_read, sizeof(acc_read), 1, file)) {
+        if (acc_read.acc_no == acc_no) {
+            printf("\nYour current balance is Rs.%.2f\n", acc_read.balance);
+            fclose(file);
+            return;
+        }
+    }
+    fclose(file);
+    printf("\nAccount No: %d was not found.\n", acc_no);
 }
 
 int main() {
