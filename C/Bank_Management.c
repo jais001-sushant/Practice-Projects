@@ -75,6 +75,10 @@ void withdraw_money() {
         printf("\nFile doesn't exist\n");
         return;
     }
+
+    int acc_no;
+    float withdraw_amount;
+    Account acc_up;
 }
 
 void check_balance() {
