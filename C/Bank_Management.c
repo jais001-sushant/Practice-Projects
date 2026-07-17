@@ -79,6 +79,26 @@ void withdraw_money() {
     int acc_no;
     float withdraw_amount;
     Account acc_up;
+
+    printf("\nEnter your account number: ");
+    scanf("%d", &acc_no);
+    printf("\nEnter amount to withdraw: ");
+    scanf("%f", &withdraw_amount);
+
+    while(fread(&acc_up, sizeof(acc_up), 1, file)) {
+        if (acc_up.acc_no == acc_no) {
+            acc_up.balance -= withdraw_amount;
+
+            fseek(file, -sizeof(acc_up), SEEK_CUR);
+            fwrite(&acc_up, sizeof(acc_up), 1, file);
+            fclose(file);
+            printf("\n%.2f withdraw from your account.\n", withdraw_amount);
+            printf("Your current balance is Rs.%.2f\n", acc_up.balance);
+            return;
+        }
+    }
+    fclose(file);
+    printf("\nAccount No: %d was not found.\n", acc_no);
 }
 
 void check_balance() {
