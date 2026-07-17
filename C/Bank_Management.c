@@ -17,6 +17,16 @@ int main() {
             while(getchar() != '\n');
             continue;
         }
+
+        if (choice == 5){
+            printf("\nExiting the User Management System. Goodbye!\n");
+            break;
+        }
+
+        else if (choice < 1 || choice > 5){
+            printf("\nInvalid choice! Please select a valid option.\n");
+            continue;
+        }
     }
     
     return 0;
