@@ -10,6 +10,13 @@ typedef struct {
 void create_account() {
     Account acc;
 
+    FILE *file;
+    file = fopen("account.txt", "a");
+    if (file == NULL) {
+        printf("\nFile doesn't exist\n");
+        return;
+    }
+
     printf("\nCreating New Account:\n");
     printf("Enter your name: ");
     fgets(acc.name, sizeof(acc.name), stdin);
@@ -20,6 +27,10 @@ void create_account() {
     scanf("%d", &acc.acc_no);
 
     acc.balance = 0;
+
+    fwrite(&acc, sizeof(acc), 1, file);
+    fclose(file);
+    printf("\nAccount created successfully !!\n");
 }
 
 void deposit_money() {
