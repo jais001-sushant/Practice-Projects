@@ -2,7 +2,7 @@
 
 int difficulty_level;
 
-int main() {
+void input_difficulty_level() {
     printf("\nWelcome to the tic-tac-toe game!\n\n");
     printf("Select difficulty level:\n");
     printf("1 - Human (Standard)\n");
@@ -12,6 +12,10 @@ int main() {
         printf("\nInvalid input. Please enter 1 for Human or 2 for God Mode: ");
         while(getchar() != '\n');
     }
+}
+
+int main() {
+    input_difficulty_level();
 
     return 0;
 }
