@@ -12,6 +12,32 @@ int puzzle[9][9] = {
     {7,3,1,0,8,2,0,0,0}
 };
 
+int valid_move(int puzzle[9][9], int row, int col, int num) {
+    for (int i = 0; i < 9; i++) {
+        if (puzzle[row][i] == num) {
+            return 0;
+        }
+    }
+
+    for (int i = 0; i < 9; i++) {
+        if (puzzle[i][col] == num) {
+            return 0;
+        }
+    }
+
+    int startRow = row - row % 3;
+    int startCol = col - col % 3;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (puzzle[i + startRow][j + startCol] == num) {
+                return 0;
+            }
+        }
+    }
+
+    return 1;
+}
+
 int solve_puzzle(int puzzle[9][9], int row, int col) {
     if (col == 9) {
         if (row == 8) {
@@ -40,32 +66,6 @@ int solve_puzzle(int puzzle[9][9], int row, int col) {
     return 0;
 }
 
-int valid_move(int puzzle[9][9], int row, int col, int num) {
-    for (int i = 0; i < 9; i++) {
-        if (puzzle[row][i] == num) {
-            return 0;
-        }
-    }
-
-    for (int i = 0; i < 9; i++) {
-        if (puzzle[i][col] == num) {
-            return 0;
-        }
-    }
-
-    int startRow = row - row % 3;
-    int startCol = col - col % 3;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (puzzle[i + startRow][j + startCol] == num) {
-                return 0;
-            }
-        }
-    }
-
-    return 1;
-}
-
 void print_puzzle(int puzzle[9][9]) {
     printf("\n+-------+-------+-------+\n");
     
@@ -92,9 +92,8 @@ void print_puzzle(int puzzle[9][9]) {
 
 int main() {
     printf("\nWelcome to the Sudoku Puzzle!\n");
+    printf("\nHere is the initial puzzle:\n");
     print_puzzle(puzzle);
-    // valid_move(puzzle, 0, 1, 1) ? printf("Valid move\n") : printf("Invalid move\n");
-    // valid_move(puzzle, 0, 1, 5) ? printf("Valid move\n") : printf("Invalid move\n");
 
     return 0;
 }
