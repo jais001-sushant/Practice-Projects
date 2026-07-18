@@ -23,7 +23,12 @@ void print_puzzle(int puzzle[9][9]) {
             if (col % 3 == 0) {
                 printf("| ");
             }
-            printf("%d ", puzzle[row][col]);
+            if (puzzle[row][col] != 0){
+                printf("%d ", puzzle[row][col]);
+            }
+            else {
+                printf("  ");
+            }
         }
         printf("|\n");
     }
