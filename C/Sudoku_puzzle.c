@@ -94,6 +94,13 @@ int main() {
     printf("\nWelcome to the Sudoku Puzzle!\n");
     printf("\nHere is the initial puzzle:\n");
     print_puzzle(puzzle);
+        printf("Solving the puzzle...\n\n");
+    if (solve_puzzle(puzzle, 0, 0)) {
+        printf("Puzzle solved successfully!\n");
+        print_puzzle(puzzle);
+    } else {
+        printf("No solution exists for the given puzzle.\n");
+    }
 
     return 0;
 }
