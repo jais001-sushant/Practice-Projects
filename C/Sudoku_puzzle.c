@@ -12,6 +12,18 @@ int puzzle[9][9] = {
     {7,3,1,0,8,2,0,0,0}
 };
 
+void print_puzzle(int puzzle[9][9]) {
+    printf("\n\n+-------+-------+-------+\n");
+    
+    for (int row = 0; row < 9; row++){
+        printf("| ");
+        for (int col = 0; col < 9; col++){
+            printf("%d ", puzzle[row][col]);
+        }
+    }
+    printf("+-------+-------+-------+\n\n");
+}
+
 int main() {
 
     return 0;
