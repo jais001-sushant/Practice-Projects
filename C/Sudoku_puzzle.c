@@ -16,6 +16,9 @@ void print_puzzle(int puzzle[9][9]) {
     printf("\n\n+-------+-------+-------+\n");
     
     for (int row = 0; row < 9; row++){
+        if (row % 3 == 0 && row != 0) {
+            printf("|-------+-------+-------|\n");
+        }
         for (int col = 0; col < 9; col++){
             if (col % 3 == 0) {
                 printf("| ");
@@ -24,6 +27,7 @@ void print_puzzle(int puzzle[9][9]) {
         }
         printf("|\n");
     }
+
     printf("+-------+-------+-------+\n\n");
 }
 
