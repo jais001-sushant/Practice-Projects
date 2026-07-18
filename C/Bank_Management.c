@@ -87,13 +87,17 @@ void withdraw_money() {
 
     while(fread(&acc_up, sizeof(acc_up), 1, file)) {
         if (acc_up.acc_no == acc_no) {
-            acc_up.balance -= withdraw_amount;
+            if (acc_up.balance >= withdraw_amount) {
+                acc_up.balance -= withdraw_amount;
 
-            fseek(file, -sizeof(acc_up), SEEK_CUR);
-            fwrite(&acc_up, sizeof(acc_up), 1, file);
+                fseek(file, -sizeof(acc_up), SEEK_CUR);
+                fwrite(&acc_up, sizeof(acc_up), 1, file);
+                printf("\n%.2f withdraw from your account.\n", withdraw_amount);
+                printf("Your current balance is Rs.%.2f\n", acc_up.balance);
+            } else {
+                printf("\nInsufficient Balance !!\n");
+            }
             fclose(file);
-            printf("\n%.2f withdraw from your account.\n", withdraw_amount);
-            printf("Your current balance is Rs.%.2f\n", acc_up.balance);
             return;
         }
     }
