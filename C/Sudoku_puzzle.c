@@ -12,6 +12,34 @@ int puzzle[9][9] = {
     {7,3,1,0,8,2,0,0,0}
 };
 
+int solve_puzzle(int puzzle[9][9], int row, int col) {
+    if (col == 9) {
+        if (row == 8) {
+            return 1;
+        }
+        row++;
+        col = 0;
+    }
+
+    if (puzzle[row][col] != 0) {
+        return solve_puzzle(puzzle, row, col + 1);
+    }
+
+    for (int i = 1; i <= 9; i++) {
+        if (valid_move(puzzle, row, col, i)) {
+            puzzle[row][col] = i;
+
+            if (solve_puzzle(puzzle, row, col + 1)) {
+                return 1;
+            }
+
+            puzzle[row][col] = 0;
+        }
+    }
+
+    return 0;
+}
+
 int valid_move(int puzzle[9][9], int row, int col, int num) {
     for (int i = 0; i < 9; i++) {
         if (puzzle[row][i] == num) {
@@ -65,8 +93,8 @@ void print_puzzle(int puzzle[9][9]) {
 int main() {
     printf("\nWelcome to the Sudoku Puzzle!\n");
     print_puzzle(puzzle);
-    valid_move(puzzle, 0, 1, 1) ? printf("Valid move\n") : printf("Invalid move\n");
-    valid_move(puzzle, 0, 1, 5) ? printf("Valid move\n") : printf("Invalid move\n");
+    // valid_move(puzzle, 0, 1, 1) ? printf("Valid move\n") : printf("Invalid move\n");
+    // valid_move(puzzle, 0, 1, 5) ? printf("Valid move\n") : printf("Invalid move\n");
 
     return 0;
 }
