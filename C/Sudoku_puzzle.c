@@ -12,6 +12,32 @@ int puzzle[9][9] = {
     {7,3,1,0,8,2,0,0,0}
 };
 
+int valid_move(int puzzle[9][9], int row, int col, int num) {
+    for (int i = 0; i < 9; i++) {
+        if (puzzle[row][i] == num) {
+            return 0;
+        }
+    }
+
+    for (int i = 0; i < 9; i++) {
+        if (puzzle[i][col] == num) {
+            return 0;
+        }
+    }
+
+    int startRow = row - row % 3;
+    int startCol = col - col % 3;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (puzzle[i + startRow][j + startCol] == num) {
+                return 0;
+            }
+        }
+    }
+
+    return 1;
+}
+
 void print_puzzle(int puzzle[9][9]) {
     printf("\n\n+-------+-------+-------+\n");
     
