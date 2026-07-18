@@ -39,7 +39,7 @@ int valid_move(int puzzle[9][9], int row, int col, int num) {
 }
 
 void print_puzzle(int puzzle[9][9]) {
-    printf("\n\n+-------+-------+-------+\n");
+    printf("\n+-------+-------+-------+\n");
     
     for (int row = 0; row < 9; row++){
         if (row % 3 == 0 && row != 0) {
@@ -63,7 +63,10 @@ void print_puzzle(int puzzle[9][9]) {
 }
 
 int main() {
+    printf("\nWelcome to the Sudoku Puzzle!\n");
     print_puzzle(puzzle);
+    valid_move(puzzle, 0, 1, 1) ? printf("Valid move\n") : printf("Invalid move\n");
+    valid_move(puzzle, 0, 1, 5) ? printf("Valid move\n") : printf("Invalid move\n");
 
     return 0;
 }
