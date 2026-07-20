@@ -1,6 +1,15 @@
 #include<stdio.h>
+#include<stdlib.h>
 
 int difficulty_level;
+
+void clear_screen() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
 
 void input_difficulty_level() {
     printf("\nWelcome to the tic-tac-toe game!\n\n");
@@ -16,6 +25,8 @@ void input_difficulty_level() {
 
 int main() {
     input_difficulty_level();
+    // clear_screen();
+    printf("\033[H\033[2J");
 
     return 0;
 }
