@@ -1,7 +1,14 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+typedef struct {
+    int player;
+    int computer;
+    int draw;
+} Score;
+
 int difficulty_level;
+Score score = {.player = 0, .computer = 0, .draw = 0};
 
 void clear_screen() {
     #ifdef _WIN32
