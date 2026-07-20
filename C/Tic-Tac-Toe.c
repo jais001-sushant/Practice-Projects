@@ -23,7 +23,7 @@ void clear_screen() {
 void print_board(char board[BOARD_SIZE][BOARD_SIZE]) {
     clear_screen();
     
-    printf("\nScore — Player: %d, Computer: %d, Draws: %d\n\n", score.player, score.computer, score.draw);
+    printf("\n\n\nScore — Player: %d, Computer: %d, Draws: %d\n\n", score.player, score.computer, score.draw);
 
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
@@ -54,8 +54,8 @@ void input_difficulty_level() {
 
 int main() {
     char board[BOARD_SIZE][BOARD_SIZE] = {
-        {' ', 'O', ' '},
-        {'X', ' ', 'X'},
+        {' ', ' ', ' '},
+        {' ', ' ', ' '},
         {' ', ' ', ' '}
     };
 
