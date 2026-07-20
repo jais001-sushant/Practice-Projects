@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+#define BOARD_SIZE 3
+
 typedef struct {
     int player;
     int computer;
@@ -18,6 +20,26 @@ void clear_screen() {
     #endif
 }
 
+void print_board(char board[BOARD_SIZE][BOARD_SIZE]) {
+    clear_screen();
+    
+    printf("\nScore — Player: %d, Computer: %d, Draws: %d\n\n", score.player, score.computer, score.draw);
+
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            printf(" %c ", board[i][j]);
+            if (j < BOARD_SIZE - 1) {
+                printf("|");
+            }
+        }
+        printf("\n");
+        if (i < BOARD_SIZE - 1) {
+            printf("---+---+---\n");
+        }
+    }
+    printf("\n");
+}
+
 void input_difficulty_level() {
     printf("\nWelcome to the tic-tac-toe game!\n\n");
     printf("Select difficulty level:\n");
@@ -31,9 +53,14 @@ void input_difficulty_level() {
 }
 
 int main() {
+    char board[BOARD_SIZE][BOARD_SIZE] = {
+        {' ', 'O', ' '},
+        {'X', ' ', 'X'},
+        {' ', ' ', ' '}
+    };
+
     input_difficulty_level();
-    // clear_screen();
-    printf("\033[H\033[2J");
+    print_board(board);
 
     return 0;
 }
