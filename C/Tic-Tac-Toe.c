@@ -69,6 +69,16 @@ void print_board(char board[BOARD_SIZE][BOARD_SIZE]) {
     printf("\n");
 }
 
+void play_game() {
+    char board[BOARD_SIZE][BOARD_SIZE] = {
+        {' ', ' ', ' '},
+        {' ', ' ', ' '},
+        {' ', ' ', ' '}
+    };
+
+    print_board(board);
+}
+
 void input_difficulty_level() {
     printf("\nWelcome to the tic-tac-toe game!\n\n");
     printf("Select difficulty level:\n");
@@ -82,14 +92,23 @@ void input_difficulty_level() {
 }
 
 int main() {
-    char board[BOARD_SIZE][BOARD_SIZE] = {
-        {' ', ' ', ' '},
-        {' ', ' ', ' '},
-        {' ', ' ', ' '}
-    };
+    int play_again;
 
     input_difficulty_level();
-    print_board(board);
+    play_game();
+
+    printf("\nPlay Again? (1 for yes, 0 for no): ");
+    while (scanf("%d", &play_again) != 1 || (play_again != 1 && play_again != 0)) {
+        printf("\nInvalid input. Please enter 1 for yes or 0 for no: ");
+        while(getchar() != '\n');
+    }
+
+    if (play_again == 1) {
+        main();
+    }
+    if (play_again == 0) {
+        printf("\nThank you for playing!\n\n");
+    }
 
     return 0;
 }
