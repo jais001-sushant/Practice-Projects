@@ -38,6 +38,17 @@ int check_win(char board[BOARD_SIZE][BOARD_SIZE], char player) {
     return 0;
 }
 
+int check_draw(char board[BOARD_SIZE][BOARD_SIZE]) {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] == ' ') {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
 void print_board(char board[BOARD_SIZE][BOARD_SIZE]) {
     clear_screen();
     
