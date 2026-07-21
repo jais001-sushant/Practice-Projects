@@ -20,6 +20,24 @@ void clear_screen() {
     #endif
 }
 
+int check_win(char board[BOARD_SIZE][BOARD_SIZE], char player) {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        if (board[i][0] == player && board[i][1] == player && board[i][2] == player) {
+            return 1;
+        }
+        if (board[0][i] == player && board[1][i] == player && board[2][i] == player) {
+            return 1;
+        }
+    }
+    if (board[0][0] == player && board[1][1] == player && board[2][2] == player) {
+        return 1;
+    }
+    if (board[0][2] == player && board[1][1] == player && board[2][0] == player) {
+        return 1;
+    }
+    return 0;
+}
+
 void print_board(char board[BOARD_SIZE][BOARD_SIZE]) {
     clear_screen();
     
