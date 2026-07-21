@@ -69,6 +69,10 @@ void print_board(char board[BOARD_SIZE][BOARD_SIZE]) {
     printf("\n");
 }
 
+void player_move(char board[BOARD_SIZE][BOARD_SIZE]) {}
+
+void computer_move(char board[BOARD_SIZE][BOARD_SIZE]) {}
+
 void play_game() {
     char board[BOARD_SIZE][BOARD_SIZE] = {
         {' ', ' ', ' '},
@@ -76,6 +80,36 @@ void play_game() {
         {' ', ' ', ' '}
     };
 
+    char current_player = rand() ? 'X' : 'O';
+
+    while (1) {
+        print_board(board);
+
+        if (current_player == 'X') {
+            player_move(board);
+            if (check_win(board, 'X')) {
+                score.player++;
+                printf("Congratulations!! You win!\n");
+                return;
+            }
+            current_player = 'O';
+        } else {
+            computer_move(board);
+            if (check_win(board, 'O')) {
+                score.computer++;
+                printf("Computer wins!\n");
+                return;
+            }
+            current_player = 'X';
+        }
+
+        if (check_draw(board)) {
+            score.draw++;
+            printf("It's a draw!\n");
+            return;
+        }
+    }
+    
     print_board(board);
 }
 
