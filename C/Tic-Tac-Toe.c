@@ -106,11 +106,12 @@ void play_game() {
 
     char current_player = rand() % 2 == 0 ? X : O;
 
+    print_board(board);
     while (1) {
-        print_board(board);
 
         if (current_player == X) {
             player_move(board, X);
+            print_board(board);
             if (check_win(board, X)) {
                 score.player++;
                 printf("Congratulations!! You win!\n");
@@ -119,6 +120,7 @@ void play_game() {
             current_player = O;
         } else {
             computer_move(board, O);
+            print_board(board);
             if (check_win(board, O)) {
                 score.computer++;
                 printf("Computer wins!\n");
