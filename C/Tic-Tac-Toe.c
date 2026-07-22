@@ -126,6 +126,11 @@ void computer_move(char board[BOARD_SIZE][BOARD_SIZE]) {
             return;
         }
 
+        if (board[0][0] == X && board[2][1] == X) {
+            board[2][0] = O;
+            return;
+        }
+        
         int corners[4][2] = {{0, 0}, {0, 2}, {2, 0}, {2, 2}};
         for (int i = 0; i < 4; i++) {
             if (board[corners[i][0]][corners[i][1]] == ' ') {
