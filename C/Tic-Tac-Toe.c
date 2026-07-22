@@ -78,6 +78,22 @@ void print_board(char board[BOARD_SIZE][BOARD_SIZE]) {
 }
 
 void player_move(char board[BOARD_SIZE][BOARD_SIZE]) {
+    int count = 0, x, y;
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] == ' ') {
+                count++;
+                x = i;
+                y = j;
+            }
+        }
+    }
+    
+    if (count == 1) {
+        board[x][y] = X;
+        return;
+    }
+
     int row, col;
     do {
         printf("Player X's turn.\n");
@@ -130,7 +146,7 @@ void computer_move(char board[BOARD_SIZE][BOARD_SIZE]) {
             board[2][0] = O;
             return;
         }
-        
+
         int corners[4][2] = {{0, 0}, {0, 2}, {2, 0}, {2, 2}};
         for (int i = 0; i < 4; i++) {
             if (board[corners[i][0]][corners[i][1]] == ' ') {
