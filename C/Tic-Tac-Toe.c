@@ -93,7 +93,57 @@ void player_move(char board[BOARD_SIZE][BOARD_SIZE]) {
 
 }
 
-void computer_move(char board[BOARD_SIZE][BOARD_SIZE]) {}
+void computer_move(char board[BOARD_SIZE][BOARD_SIZE]) {
+
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] == ' ') {
+                board[i][j] = O;
+                if (check_win(board, O)) {
+                    return;
+                }
+                board[i][j] = ' ';
+            }
+        }
+    }
+
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] == ' ') {
+                board[i][j] = X;
+                if (check_win(board, X)) {
+                    board[i][j] = O;
+                    return;
+                }
+                board[i][j] = ' ';
+            }
+        }
+    }
+
+    if (difficulty_level == 2) {
+        if (board[1][1] == ' ') {
+            board[1][1] = O;
+            return;
+        }
+
+        int corners[4][2] = {{0, 0}, {0, 2}, {2, 0}, {2, 2}};
+        for (int i = 0; i < 4; i++) {
+            if (board[corners[i][0]][corners[i][1]] == ' ') {
+                board[corners[i][0]][corners[i][1]] = O;
+                return;
+            }
+        }
+    }
+
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] == ' ') {
+                board[i][j] = O;
+                return;
+            }
+        }
+    }
+}
 
 void play_game() {
     char board[BOARD_SIZE][BOARD_SIZE] = {
@@ -108,7 +158,7 @@ void play_game() {
     while (1) {
 
         if (current_player == X) {
-            player_move(board, X);
+            player_move(board);
             print_board(board);
             if (check_win(board, X)) {
                 score.player++;
@@ -118,12 +168,12 @@ void play_game() {
             }
             current_player = O;
         } else {
-            computer_move(board, O);
+            computer_move(board);
             print_board(board);
             if (check_win(board, O)) {
                 score.computer++;
                 print_board(board);
-                printf("Computer wins!\n");
+                printf("Computer wins! Better luck next time!\n");
                 return;
             }
             current_player = X;
