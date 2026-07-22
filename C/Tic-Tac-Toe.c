@@ -60,7 +60,7 @@ void print_board(char board[BOARD_SIZE][BOARD_SIZE]) {
     clear_screen();
     
     printf("\n\n\nScore — Player (X): %d, Computer (O): %d, Draws: %d\n\n", score.player, score.computer, score.draw);
-    printf("Current Tic Tac Toe Board:\n");
+    printf("Current Tic Tac Toe Board:\n\n");
 
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
@@ -83,7 +83,7 @@ void player_move(char board[BOARD_SIZE][BOARD_SIZE], char player) {
         printf("Player %c's turn.\n", player);
         printf("Enter row and column (1-3) for %c: ", player);
         while (scanf("%d %d", &row, &col) != 2 || !is_valid_move(board, row - 1, col - 1)) {
-            printf("Invalid input. Please enter row and column (1-3) for %c: ", player);
+            printf("\nInvalid input. Please enter row and column (1-3) for %c: ", player);
             while(getchar() != '\n');
         }
         row--;
@@ -114,6 +114,7 @@ void play_game() {
             print_board(board);
             if (check_win(board, X)) {
                 score.player++;
+                print_board(board);
                 printf("Congratulations!! You win!\n");
                 return;
             }
@@ -123,6 +124,7 @@ void play_game() {
             print_board(board);
             if (check_win(board, O)) {
                 score.computer++;
+                print_board(board);
                 printf("Computer wins!\n");
                 return;
             }
@@ -131,6 +133,7 @@ void play_game() {
 
         if (check_draw(board)) {
             score.draw++;
+            print_board(board);
             printf("It's a draw!\n");
             return;
         }
