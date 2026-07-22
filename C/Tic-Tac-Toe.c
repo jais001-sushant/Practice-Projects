@@ -88,7 +88,7 @@ void player_move(char board[BOARD_SIZE][BOARD_SIZE]) {
             }
         }
     }
-    
+
     if (count == 1) {
         board[x][y] = X;
         return;
@@ -142,7 +142,7 @@ void computer_move(char board[BOARD_SIZE][BOARD_SIZE]) {
             return;
         }
 
-        if (board[0][0] == X && board[2][1] == X) {
+        if (board[0][0] == X && board[2][1] == X && board[2][0] == ' ') {
             board[2][0] = O;
             return;
         }
@@ -212,7 +212,7 @@ void play_game() {
 }
 
 void input_difficulty_level() {
-    printf("\nWelcome to the Tic Tac Toe game!\n\n");
+    printf("\n\n\nWelcome to the Tic Tac Toe game!\n\n");
     printf("Select difficulty level:\n");
     printf("1 - Human (Standard)\n");
     printf("2 - God Mode (Unbeatable)\n");
@@ -226,19 +226,18 @@ void input_difficulty_level() {
 int main() {
     srand(time(NULL));
     int play_again;
-
+    clear_screen();
     input_difficulty_level();
-    play_game();
+    
+    do {
+        play_game();
+        printf("\nPlay Again? (1 for yes, 0 for no): ");
+        while (scanf("%d", &play_again) != 1 || (play_again != 1 && play_again != 0)) {
+            printf("\nInvalid input. Please enter 1 for yes or 0 for no: ");
+            while(getchar() != '\n');
+        }
+    } while (play_again == 1);
 
-    printf("\nPlay Again? (1 for yes, 0 for no): ");
-    while (scanf("%d", &play_again) != 1 || (play_again != 1 && play_again != 0)) {
-        printf("\nInvalid input. Please enter 1 for yes or 0 for no: ");
-        while(getchar() != '\n');
-    }
-
-    if (play_again == 1) {
-        main();
-    }
     if (play_again == 0) {
         printf("\nThank you for playing!\n\n");
     }
