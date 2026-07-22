@@ -77,25 +77,23 @@ void print_board(char board[BOARD_SIZE][BOARD_SIZE]) {
     printf("\n");
 }
 
-void player_move(char board[BOARD_SIZE][BOARD_SIZE], char player) {
+void player_move(char board[BOARD_SIZE][BOARD_SIZE]) {
     int row, col;
     do {
-        printf("Player %c's turn.\n", player);
-        printf("Enter row and column (1-3) for %c: ", player);
+        printf("Player X's turn.\n");
+        printf("Enter row and column (1-3) for X: ");
         while (scanf("%d %d", &row, &col) != 2 || !is_valid_move(board, row - 1, col - 1)) {
-            printf("\nInvalid input. Please enter row and column (1-3) for %c: ", player);
+            printf("\nInvalid input. Please enter row and column (1-3) for X: ");
             while(getchar() != '\n');
         }
         row--;
         col--;
     } while (!is_valid_move(board, row, col));
-    board[row][col] = player;
+    board[row][col] = X;
 
 }
 
-void computer_move(char board[BOARD_SIZE][BOARD_SIZE], char player) {
-    player_move(board, player);
-}
+void computer_move(char board[BOARD_SIZE][BOARD_SIZE]) {}
 
 void play_game() {
     char board[BOARD_SIZE][BOARD_SIZE] = {
