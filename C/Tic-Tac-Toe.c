@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<time.h>
 
 #define BOARD_SIZE 3
 #define X 'X'
@@ -51,10 +52,15 @@ int check_draw(char board[BOARD_SIZE][BOARD_SIZE]) {
     return 1;
 }
 
+int is_valid_move(char board[BOARD_SIZE][BOARD_SIZE], int row, int col) {
+    return !(row < 0 || row > 2 || col < 0 || col > 2 || board[row][col] != ' ');
+}
+
 void print_board(char board[BOARD_SIZE][BOARD_SIZE]) {
     clear_screen();
     
-    printf("\n\n\nScore — Player: %d, Computer: %d, Draws: %d\n\n", score.player, score.computer, score.draw);
+    printf("\n\n\nScore — Player (X): %d, Computer (O): %d, Draws: %d\n\n", score.player, score.computer, score.draw);
+    printf("Current Tic Tac Toe Board:\n");
 
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
@@ -71,9 +77,25 @@ void print_board(char board[BOARD_SIZE][BOARD_SIZE]) {
     printf("\n");
 }
 
-void player_move(char board[BOARD_SIZE][BOARD_SIZE]) {}
+void player_move(char board[BOARD_SIZE][BOARD_SIZE], char player) {
+    int row, col;
+    do {
+        printf("Player %c's turn.\n", player);
+        printf("Enter row and column (1-3) for %c: ", player);
+        while (scanf("%d %d", &row, &col) != 2 || !is_valid_move(board, row - 1, col - 1)) {
+            printf("Invalid input. Please enter row and column (1-3) for %c: ", player);
+            while(getchar() != '\n');
+        }
+        row--;
+        col--;
+    } while (!is_valid_move(board, row, col));
+    board[row][col] = player;
 
-void computer_move(char board[BOARD_SIZE][BOARD_SIZE]) {}
+}
+
+void computer_move(char board[BOARD_SIZE][BOARD_SIZE], char player) {
+    player_move(board, player);
+}
 
 void play_game() {
     char board[BOARD_SIZE][BOARD_SIZE] = {
@@ -82,13 +104,13 @@ void play_game() {
         {' ', ' ', ' '}
     };
 
-    char current_player = rand() ? X : O;
+    char current_player = rand() % 2 == 0 ? X : O;
 
     while (1) {
         print_board(board);
 
         if (current_player == X) {
-            player_move(board);
+            player_move(board, X);
             if (check_win(board, X)) {
                 score.player++;
                 printf("Congratulations!! You win!\n");
@@ -96,7 +118,7 @@ void play_game() {
             }
             current_player = O;
         } else {
-            computer_move(board);
+            computer_move(board, O);
             if (check_win(board, O)) {
                 score.computer++;
                 printf("Computer wins!\n");
@@ -116,7 +138,7 @@ void play_game() {
 }
 
 void input_difficulty_level() {
-    printf("\nWelcome to the tic-tac-toe game!\n\n");
+    printf("\nWelcome to the Tic Tac Toe game!\n\n");
     printf("Select difficulty level:\n");
     printf("1 - Human (Standard)\n");
     printf("2 - God Mode (Unbeatable)\n");
@@ -128,6 +150,7 @@ void input_difficulty_level() {
 }
 
 int main() {
+    srand(time(NULL));
     int play_again;
 
     input_difficulty_level();
