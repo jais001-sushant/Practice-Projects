@@ -11,18 +11,17 @@ void clear_screen() {
     #endif
 }
 
+struct termios oldt;
+
 void set_terminal_attributes() {
-    struct termios oldt, newt;
     tcgetattr(STDIN_FILENO, &oldt);
-    newt = oldt;
-    newt.c_lflag &= ~(ICANON | ECHO);
+    atexit(reset_terminal_attributes);
+    struct termios newt = oldt;
+    newt.c_lflag = ~(ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 }
 
-void resey_terminal_attributes() {
-    struct termios oldt;
-    tcgetattr(STDIN_FILENO, &oldt);
-    oldt.c_lflag |= (ICANON | ECHO);
+void reset_terminal_attributes() {
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 }
 
