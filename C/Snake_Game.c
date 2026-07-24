@@ -31,7 +31,7 @@ void set_terminal_attributes() {
 
 void draw_border() {
     clear_screen();
-    printf("Welcome to the Snake Game!\n");
+    printf("\nWelcome to the Snake Game!\n\n");
     for (int i = 0; i < WIDTH + 2; i++) {
         printf("#");
     }
@@ -48,7 +48,7 @@ void draw_border() {
     for (int i = 0; i < WIDTH + 2; i++) {
         printf("#");
     }
-    printf("\nScore: %d\n", score);
+    printf("\n\nScore: %d\n", score);
 }
 
 int main() {
