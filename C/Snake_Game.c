@@ -6,6 +6,10 @@
 
 #define HEIGHT 20
 #define WIDTH 60
+
+enum Direction { UP, DOWN, LEFT, RIGHT, STOP };
+
+enum Direction dir;
 int score = 0;
 int fruit_x, fruit_y;
 int head_x, head_y;
@@ -32,11 +36,20 @@ void set_terminal_attributes() {
     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 }
 
+int input_available() {
+    struct timeval tv = {0L, 0L};
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(STDIN_FILENO, &fds);
+    return select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+}
+
 void setup_game() {
     head_x = WIDTH / 2;
     head_y = HEIGHT / 2;
     fruit_x = rand() % WIDTH;
     fruit_y = rand() % HEIGHT;
+    dir = STOP;
 }
 
 void draw_border() {
