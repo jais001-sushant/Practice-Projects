@@ -2,12 +2,13 @@
 #include<stdlib.h>
 #include<termios.h>
 #include<unistd.h>
+#include<time.h>
 
 #define HEIGHT 20
 #define WIDTH 60
 int score = 0;
-int fruit_x = 10, fruit_y = 10;
-int head_x = 30, head_y = 10;
+int fruit_x, fruit_y;
+int head_x, head_y;
 
 void clear_screen() {
     #ifdef _WIN32
@@ -31,9 +32,16 @@ void set_terminal_attributes() {
     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 }
 
+void setup_game() {
+    head_x = WIDTH / 2;
+    head_y = HEIGHT / 2;
+    fruit_x = rand() % WIDTH;
+    fruit_y = rand() % HEIGHT;
+}
+
 void draw_border() {
     clear_screen();
-    printf("\n\t\tWelcome to the Snake Game!\n\n");
+    printf("\n\n\n\t\tWelcome to the Snake Game!\n\n");
     for (int i = 0; i < WIDTH + 2; i++) {
         printf("#");
     }
@@ -62,7 +70,9 @@ void draw_border() {
 }
 
 int main() {
+    srand(time(NULL));
     set_terminal_attributes();
+    setup_game();
     draw_border();
 
     return 0;
