@@ -36,6 +36,43 @@ void set_terminal_attributes() {
     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 }
 
+void game_play() {
+    switch(dir) {
+        case UP:
+            head_y--;
+            break;
+        case DOWN:
+            head_y++;
+            break;
+        case LEFT:
+            head_x--;
+            break;
+        case RIGHT:
+            head_x++;
+            break;
+        case STOP:
+            break;
+    }
+
+    if (head_x < 0) {
+        head_x = WIDTH - 1;
+    } else if (head_x >= WIDTH) {
+        head_x = 0;
+    }
+
+    if (head_y < 0) {
+        head_y = HEIGHT - 1;
+    } else if (head_y >= HEIGHT) {
+        head_y = 0;
+    }
+
+    if (head_x == fruit_x && head_y == fruit_y) {
+        score++;
+        fruit_x = rand() % WIDTH;
+        fruit_y = rand() % HEIGHT;
+    }
+}
+
 int input_available() {
     struct timeval tv = {0L, 0L};
     fd_set fds;
@@ -86,7 +123,11 @@ int main() {
     srand(time(NULL));
     set_terminal_attributes();
     setup_game();
-    draw_border();
+    while (1) {
+        draw_border();
+        game_play();
+        sleep(1);
+    }
 
     return 0;
 }
