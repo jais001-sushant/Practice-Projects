@@ -67,7 +67,7 @@ void game_play() {
     }
 
     if (head_x == fruit_x && head_y == fruit_y) {
-        score++;
+        score += 10;
         fruit_x = rand() % WIDTH;
         fruit_y = rand() % HEIGHT;
     }
@@ -79,6 +79,29 @@ int input_available() {
     FD_ZERO(&fds);
     FD_SET(STDIN_FILENO, &fds);
     return select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+}
+
+void input() {
+    if (input_available()) {
+        char ch = getchar();
+        switch(ch) {
+            case 'w':
+                dir = UP;
+                break;
+            case 's':
+                dir = DOWN;
+                break;
+            case 'a':
+                dir = LEFT;
+                break;
+            case 'd':
+                dir = RIGHT;
+                break;
+            case 'q':
+                exit(0);
+                break;
+        }
+    }
 }
 
 void setup_game() {
@@ -125,8 +148,13 @@ int main() {
     setup_game();
     while (1) {
         draw_border();
+        input();
         game_play();
-        sleep(1);
+        int delay = 300000 - (score * 2000);
+        if (delay < 100000) {
+            delay = 100000;
+        }
+        usleep(delay);
     }
 
     return 0;
