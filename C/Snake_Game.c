@@ -75,6 +75,13 @@ void game_play() {
         head_y = 0;
     }
 
+    for (int i = 0; i < tail_length; i++) {
+        if (tail_x[i] == head_x && tail_y[i] == head_y) {
+            printf("\nYou have hit your own tail! Game Over!!!\n");
+            exit(0);
+        }
+    }
+
     if (head_x == fruit_x && head_y == fruit_y) {
         score += 10;
         tail_length++;
