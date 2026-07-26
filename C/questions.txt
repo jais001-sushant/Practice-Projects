@@ -1,0 +1,7 @@
+What is the capital city of India?
+Delhi
+Mumbai
+Kolkata
+Chennai
+10
+1000
