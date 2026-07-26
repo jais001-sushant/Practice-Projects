@@ -10,9 +10,11 @@
 enum Direction { UP, DOWN, LEFT, RIGHT, STOP };
 
 enum Direction dir;
-int score = 0;
+int score;
 int fruit_x, fruit_y;
 int head_x, head_y;
+int tail_length;
+int tail_x[100], tail_y[100];
 
 void clear_screen() {
     #ifdef _WIN32
@@ -37,6 +39,8 @@ void set_terminal_attributes() {
 }
 
 void game_play() {
+    int x = head_x, y = head_y;
+    
     switch(dir) {
         case UP:
             head_y--;
@@ -68,6 +72,7 @@ void game_play() {
 
     if (head_x == fruit_x && head_y == fruit_y) {
         score += 10;
+        tail_length++;
         fruit_x = rand() % WIDTH;
         fruit_y = rand() % HEIGHT;
     }
@@ -110,6 +115,8 @@ void setup_game() {
     fruit_x = rand() % WIDTH;
     fruit_y = rand() % HEIGHT;
     dir = STOP;
+    score = 0;
+    tail_length = 0;
 }
 
 void draw_border() {
