@@ -39,8 +39,13 @@ void set_terminal_attributes() {
 }
 
 void game_play() {
-    int x = head_x, y = head_y;
-    
+    for(int i = tail_length - 1; i > 0; i--) {
+        tail_x[i] = tail_x[i - 1];
+        tail_y[i] = tail_y[i - 1];
+    }
+    tail_x[0] = head_x;
+    tail_y[0] = head_y;
+
     switch(dir) {
         case UP:
             head_y--;
@@ -137,7 +142,17 @@ void draw_border() {
                 printf("*");
             }
             else {
-                printf(" ");
+                int tail_found = 0;
+                for (int k = 0; k < tail_length; k++) {
+                    if (tail_x[k] == j && tail_y[k] == i) {
+                        printf("o");
+                        tail_found = 1;
+                        break;
+                    }
+                }
+                if (!tail_found) {
+                    printf(" ");
+                }
             }
         }
         printf("#\n");
