@@ -6,3 +6,83 @@ Chennai
 A
 10
 1000
+Who developed the C programming language?
+Dennis Ritchie
+Bjarne Stroustrup
+James Gosling
+Guido van Rossum
+A
+10
+1000
+Which planet is known as the Red Planet?
+Earth
+Mars
+Jupiter
+Venus
+B
+10
+1000
+What is the largest ocean on Earth?
+Atlantic Ocean
+Indian Ocean
+Pacific Ocean
+Arctic Ocean
+C
+10
+1000
+Which data type is used to store decimal numbers in C?
+int
+char
+float
+void
+C
+10
+1000
+How many continents are there in the world?
+5
+6
+7
+8
+C
+10
+1000
+Which symbol is used to end a statement in C?
+:
+,
+;
+.
+C
+10
+1000
+Who is known as the Father of Computers?
+Charles Babbage
+Alan Turing
+Bill Gates
+Steve Jobs
+A
+10
+1000
+Which keyword is used to return a value from a function in C?
+break
+continue
+return
+exit
+C
+10
+1000
+Which is the smallest prime number?
+0
+1
+2
+3
+C
+10
+1000
+What is the chemical symbol for Gold?
+Ag
+Au
+Gd
+Go
+B
+10
+1000
