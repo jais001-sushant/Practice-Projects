@@ -1,13 +1,27 @@
 #include<stdio.h>
+#include<stdlib.h>
+
+#define MAX_QUES_LEN 300
+#define MAX_OPTION_LEN 100
 
 typedef struct {
-    char question[300];
-    char options[4][100];
+    char text[MAX_QUES_LEN];
+    char options[4][MAX_OPTION_LEN];
     int timeout;
     int prize_money;
 } Question;
 
+void read_questions(char* filename, Question* questions) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("File doesn't exist\n");
+        exit(0);
+    }
+}
+
 int main() {
+    Question* questions;
+    read_questions("questions.txt", questions);
 
     return 0;
 }
