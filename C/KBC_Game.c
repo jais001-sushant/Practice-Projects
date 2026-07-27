@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<ctype.h>
+#include<termios.h>
+#include<unistd.h>
 
 #define MAX_QUES_LEN 300
 #define MAX_OPTION_LEN 100
@@ -20,6 +22,20 @@ typedef struct {
     int timeout;
     int prize_money;
 } Question;
+
+struct termios oldt;
+
+void reset_terminal_attributes() {
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+}
+
+void set_terminal_attributes() {
+    tcgetattr(STDIN_FILENO, &oldt);
+    atexit(reset_terminal_attributes);
+    struct termios newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+}
 
 int read_questions(char* filename, Question** questions) {
     FILE *file = fopen(filename, "r");
@@ -80,17 +96,23 @@ void play_game(Question* questions, int no_of_questions){
         char ch = getchar();
         ch = toupper(ch);
 
+        if (ch != 'A' && ch != 'B' && ch != 'C' && ch != 'D' && ch != 'L') {
+            printf("\n%sInvalid input! Please enter A, B, C, D or L.%s\n", RED, COLOR_END);
+            i--;
+            continue;
+        }
+
         if (ch == 'L') {
-            printf("No lifelines available yet.\n");
+            printf("\nNo lifelines available yet.");
             break;
         }
 
         if (ch == questions[i].correct_option) {
-            printf("%sCorrect answer!%s\n", GREEN, COLOR_END);
+            printf("%s\nCorrect answer!%s\n", GREEN, COLOR_END);
             money_won += questions[i].prize_money;
             printf("%sYou have won Rs.%d%s\n", BLUE, questions[i].prize_money, COLOR_END);
         } else {
-            printf("%sWrong answer! The correct answer was %c.%s\n", RED, questions[i].correct_option, COLOR_END);
+            printf("%s\nWrong answer! The correct answer was %c.%s", RED, questions[i].correct_option, COLOR_END);
             break;
         }
     }
@@ -99,6 +121,8 @@ void play_game(Question* questions, int no_of_questions){
 }
 
 int main() {
+    set_terminal_attributes();
+
     printf("\n%sChalo Khelte hain KAUN BANEGA CROREPATI !!!%s\n", PINK, COLOR_END);
 
     Question* questions;
