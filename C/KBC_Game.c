@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<ctype.h>
 
 #define MAX_QUES_LEN 300
 #define MAX_OPTION_LEN 100
@@ -72,14 +73,38 @@ void print_formatted_question(Question question) {
     // printf("Prize Money: Rs.%d\n", question.prize_money);
 }
 
+void play_game(Question* questions, int no_of_questions){
+    int money_won = 0;
+    for (int i = 0; i < no_of_questions; i++) {
+        print_formatted_question(questions[i]);
+        char ch = getchar();
+        ch = toupper(ch);
+
+        if (ch == 'L') {
+            printf("No lifelines available yet.\n");
+            break;
+        }
+
+        if (ch == questions[i].correct_option) {
+            printf("%sCorrect answer!%s\n", GREEN, COLOR_END);
+            money_won += questions[i].prize_money;
+            printf("%sYou have won Rs.%d%s\n", BLUE, questions[i].prize_money, COLOR_END);
+        } else {
+            printf("%sWrong answer! The correct answer was %c.%s\n", RED, questions[i].correct_option, COLOR_END);
+            break;
+        }
+    }
+
+    printf("\n\n%sGame Over! You have won a total of Rs.%d%s\n", BLUE, money_won, COLOR_END);
+}
+
 int main() {
     printf("\n%sChalo Khelte hain KAUN BANEGA CROREPATI !!!%s\n", PINK, COLOR_END);
+
     Question* questions;
     int no_of_questions = read_questions("questions.txt", &questions);
 
-    // for (int i = 0; i < no_of_questions; i++) {
-        print_formatted_question(questions[0]);
-    // }
+    play_game(questions, no_of_questions);
 
     return 0;
 }
