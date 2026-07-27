@@ -4,6 +4,14 @@
 #define MAX_QUES_LEN 300
 #define MAX_OPTION_LEN 100
 
+const char* PINK = "\033[1;35m";
+const char* BLUE = "\033[1;34m";
+const char* GREEN = "\033[1;32m";
+const char* YELLOW = "\033[1;33m";
+const char* RED = "\033[1;31m";
+const char* CYAN = "\033[1;36m";
+const char* COLOR_END = "\033[0m";
+
 typedef struct {
     char text[MAX_QUES_LEN];
     char options[4][MAX_OPTION_LEN];
@@ -29,7 +37,7 @@ int read_questions(char* filename, Question** questions) {
     rewind(file);
     for (int i = 0; i < no_of_questions; i++) {
         fgets((*questions)[i].text, MAX_QUES_LEN, file);
-        
+
         for (int j = 0; j < 4; j++) {
             fgets((*questions)[i].options[j], MAX_OPTION_LEN, file);
         }
@@ -52,22 +60,26 @@ int read_questions(char* filename, Question** questions) {
 }
 
 void print_formatted_question(Question question) {
-    printf("\n%s", question.text);
+    printf("\n%s%s%s", YELLOW, question.text, COLOR_END);
     for (int i = 0; i < 4; i++) {
-        printf("%c. %s", 'A' + i, question.options[i]);
+        printf("%s%c. %s%s", CYAN, 'A' + i, question.options[i], COLOR_END);
     }
-    printf("Correct Option: %c\n", question.correct_option);
-    printf("Timeout: %d seconds\n", question.timeout);
-    printf("Prize Money: Rs.%d\n", question.prize_money);
+    printf("\n%sHurry up! You have %d seconds to answer...%s\n", YELLOW, question.timeout, COLOR_END);
+    printf("%sEnter your answer (A/B/C/D) or L for Lifeline: %s", GREEN, COLOR_END);
+
+    // printf("Correct Option: %c\n", question.correct_option);
+    // printf("Timeout: %d seconds\n", question.timeout);
+    // printf("Prize Money: Rs.%d\n", question.prize_money);
 }
 
 int main() {
+    printf("\n%sChalo Khelte hain KAUN BANEGA CROREPATI !!!%s\n", PINK, COLOR_END);
     Question* questions;
     int no_of_questions = read_questions("questions.txt", &questions);
 
-    for (int i = 0; i < no_of_questions; i++) {
-        print_formatted_question(questions[i]);
-    }
+    // for (int i = 0; i < no_of_questions; i++) {
+        print_formatted_question(questions[0]);
+    // }
 
     return 0;
 }
