@@ -14,6 +14,7 @@ const char* YELLOW = "\033[1;33m";
 const char* RED = "\033[1;31m";
 const char* CYAN = "\033[1;36m";
 const char* COLOR_END = "\033[0m";
+int Q = 0;
 
 typedef struct {
     char text[MAX_QUES_LEN];
@@ -77,7 +78,7 @@ int read_questions(char* filename, Question** questions) {
 }
 
 void print_formatted_question(Question question) {
-    printf("\n%s%s%s", YELLOW, question.text, COLOR_END);
+    printf("\n%sQ%d: %s%s", YELLOW, ++Q, question.text, COLOR_END);
     for (int i = 0; i < 4; i++) {
         printf("%s%c. %s%s", CYAN, 'A' + i, question.options[i], COLOR_END);
     }
@@ -94,6 +95,7 @@ void play_game(Question* questions, int no_of_questions){
     for (int i = 0; i < no_of_questions; i++) {
         print_formatted_question(questions[i]);
         char ch = getchar();
+        printf("%c\n", toupper(ch));
         ch = toupper(ch);
 
         if (ch != 'A' && ch != 'B' && ch != 'C' && ch != 'D' && ch != 'L') {
@@ -103,7 +105,7 @@ void play_game(Question* questions, int no_of_questions){
         }
 
         if (ch == 'L') {
-            printf("\nNo lifelines available yet.");
+            printf("\nNo lifelines available yet.\n");
             break;
         }
 
@@ -112,12 +114,12 @@ void play_game(Question* questions, int no_of_questions){
             money_won += questions[i].prize_money;
             printf("%sYou have won Rs.%d%s\n", BLUE, questions[i].prize_money, COLOR_END);
         } else {
-            printf("%s\nWrong answer! The correct answer was %c.%s", RED, questions[i].correct_option, COLOR_END);
+            printf("%s\nWrong answer! The correct answer was %c.%s\n", RED, questions[i].correct_option, COLOR_END);
             break;
         }
     }
 
-    printf("\n\n%sGame Over! You have won a total of Rs.%d%s\n", BLUE, money_won, COLOR_END);
+    printf("\n%sGame Over! You have won a total of Rs.%d%s\n", BLUE, money_won, COLOR_END);
 }
 
 int main() {
