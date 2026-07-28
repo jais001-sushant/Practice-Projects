@@ -85,13 +85,42 @@ void print_formatted_question(Question question) {
     printf("\n%sHurry up! You have %d seconds to answer...%s\n", YELLOW, question.timeout, COLOR_END);
     printf("%sEnter your answer (A/B/C/D) or L for Lifeline: %s", GREEN, COLOR_END);
 
-    // printf("Correct Option: %c\n", question.correct_option);
     // printf("Timeout: %d seconds\n", question.timeout);
     // printf("Prize Money: Rs.%d\n", question.prize_money);
 }
 
+int use_lifeline(Question* question, int* lifeline) {
+    printf("\n%sAvailable Lifelines:%s", PINK, COLOR_END);
+    if (lifeline[0]) printf("\n%s1. Fifty-Fifty (50-50)%s", PINK, COLOR_END);
+    if (lifeline[1]) printf("\n%s2. Skip the Question%s", PINK, COLOR_END);
+    printf("\n%sChoose a lifeline or 0 to return:%s", PINK, COLOR_END);
+
+    char ch = getchar();
+    printf("%c\n", toupper(ch));
+    ch = toupper(ch);
+
+    switch(ch){
+        case '1':
+        
+        break;
+        case '2':
+
+        break;
+        case '0':
+            printf("\n%sReturning to the question...%s\n", PINK, COLOR_END);
+            return 0;
+        break;
+        default:
+            printf("\n%sInvalid input! Please enter 1, 2 or 0.%s\n", RED, COLOR_END);
+        break;
+    }
+
+    return 0;
+}
+
 void play_game(Question* questions, int no_of_questions){
     int money_won = 0;
+    int lifeline[] = {1, 1};
     for (int i = 0; i < no_of_questions; i++) {
         print_formatted_question(questions[i]);
         char ch = getchar();
@@ -105,8 +134,7 @@ void play_game(Question* questions, int no_of_questions){
         }
 
         if (ch == 'L') {
-            printf("\nNo lifelines available yet.\n");
-            break;
+            int value = use_lifeline(&questions[i], lifeline);
         }
 
         if (ch == questions[i].correct_option) {
