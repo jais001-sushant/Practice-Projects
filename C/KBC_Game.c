@@ -123,10 +123,11 @@ int use_lifeline(Question* question, int* lifeline) {
             if (lifeline[1]) {
                 lifeline[1] = 0;
                 printf("\n%sSkip the Question Lifeline used! Moving to the next question.%s\n", PINK, COLOR_END);
+                return 2;
             } else {
                 printf("\n%sSkip the Question Lifeline already used!%s\n", RED, COLOR_END);
             }
-            return 2;
+            return 0;
         break;
         case '0':
             printf("\n%sReturning to the question...%s\n", PINK, COLOR_END);
