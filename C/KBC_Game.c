@@ -7,6 +7,8 @@
 #define MAX_QUES_LEN 300
 #define MAX_OPTION_LEN 100
 
+volatile int timeout_flag = 0;
+
 const char* PINK = "\033[1;35m";
 const char* BLUE = "\033[1;34m";
 const char* GREEN = "\033[1;32m";
@@ -86,9 +88,6 @@ void print_formatted_question(Question question) {
     }
     printf("\n%sHurry up! You have %d seconds to answer...%s\n", YELLOW, question.timeout, COLOR_END);
     printf("%sEnter your answer (A/B/C/D) or L for Lifeline: %s", GREEN, COLOR_END);
-
-    // printf("Timeout: %d seconds\n", question.timeout);
-    // printf("Prize Money: Rs.%d\n", question.prize_money);
 }
 
 int use_lifeline(Question* question, int* lifeline) {
@@ -141,14 +140,29 @@ int use_lifeline(Question* question, int* lifeline) {
     return 0;
 }
 
+void handle_timeout() {
+    timeout_flag = 1;
+    printf("\n\n%sTime's up! Press Any Key...%s", RED, COLOR_END);
+    fflush(stdout);
+}
+
 void play_game(Question* questions, int no_of_questions){
     int money_won = 0;
     int lifeline[] = {1, 1};
+
+    signal(SIGALRM, handle_timeout);
+
     for (int i = 0; i < no_of_questions; i++) {
         print_formatted_question(questions[i]);
+        alarm(questions[i].timeout);
         char ch = getchar();
+        alarm(0);
         printf("%c\n", toupper(ch));
         ch = toupper(ch);
+
+        if (timeout_flag == 1) {
+            break;
+        }
 
         if (ch != 'A' && ch != 'B' && ch != 'C' && ch != 'D' && ch != 'L') {
             printf("\n%sInvalid input! Please enter A, B, C, D or L.%s\n", RED, COLOR_END);
