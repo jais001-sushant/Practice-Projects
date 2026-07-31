@@ -9,5 +9,6 @@ Guessing_Number
 Sudoku_Puzzle
 Simple_Calculator
 account.txt
-# *.o
-# *.out
+*.o
+*.out
+.DS_Store
